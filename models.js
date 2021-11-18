@@ -2,51 +2,43 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
+const gameschema = new Schema({
   day: {
     type: Date,
     default: Date.now(),
     required: "date needed"
   },
-  exercises: [
+  round: [
     {
-      type: {
-        type: String,
-        trim: true,
-        required: "resistance or cardio"
-      },
-
-      name: {
-        type: String,
-        trim: true,
-        required: "Name of exercise required"
-      },
-
-      duration: {
+      number: {
         type: Number,
         required: true
       },
 
-      weight: {
+      battletactic: {
+        type: String,
+      },
+
+      duration: {
         type: Number,
       },
 
-      reps: {
+      heroicaction: {
+        type: String,
+      },
+
+      victorypoints: {
         type: Number,
       },
 
-      sets: {
-        type: Number,
-      },
-
-      distance: {
-        type: Number,
+      monsterslain: {
+        type: Boolean,
       },
     }
   ]
 
 });
 
-const Workout = mongoose.model("Workout", exerciseSchema);
+const Game = mongoose.model("Game", gameschema);
 
-module.exports = Workout;
+module.exports = Game;

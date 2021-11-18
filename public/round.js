@@ -1,5 +1,5 @@
-// This script file handles the logic behind the input of the exercise to be added to the workout. It then sends this information to back end, to be added to the database.
-const workoutTypeSelect = document.querySelector("#type");
+// This script file handles the logic behind the input of the Round to be added to the game. It then sends this information to back end, to be added to the database.
+const gameTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
 const cardioNameInput = document.querySelector("#cardio-name");
@@ -13,35 +13,35 @@ const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout")
+const newgame = document.querySelector(".new-game")
 
-let workoutType = null;
+let gameType = null;
 let shouldNavigateAway = false;
 
-// If no workout exists, a new one will be created.
-async function initExercise() {
-  let workout;
+// If no game exists, a new one will be created.
+async function initRound() {
+  let game;
 
   if (location.search.split("=")[1] === undefined) {
     console.log("Line 24 " + location.search.split("=")[1]);
-    workout = await API.createWorkout()
-    console.log("This is line 26 in" + workout);
+    game = await API.creategame()
+    console.log("This is line 26 in" + game);
   }
-  if (workout) {
-    location.search = "?id=" + workout._id;
+  if (game) {
+    location.search = "?id=" + game._id;
   }
 
 }
 
-initExercise();
+initRound();
 
-function handleWorkoutTypeChange(event) {
-  workoutType = event.target.value;
+function handlegameTypeChange(event) {
+  gameType = event.target.value;
 
-  if (workoutType === "cardio") {
+  if (gameType === "cardio") {
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
-  } else if (workoutType === "resistance") {
+  } else if (gameType === "resistance") {
     resistanceForm.classList.remove("d-none");
     cardioForm.classList.add("d-none");
   } else {
@@ -55,7 +55,7 @@ function handleWorkoutTypeChange(event) {
 function validateInputs() {
   let isValid = true;
 
-  if (workoutType === "resistance") {
+  if (gameType === "resistance") {
     if (nameInput.value.trim() === "") {
       isValid = false;
     }
@@ -75,7 +75,7 @@ function validateInputs() {
     if (resistanceDurationInput.value.trim() === "") {
       isValid = false;
     }
-  } else if (workoutType === "cardio") {
+  } else if (gameType === "cardio") {
     if (cardioNameInput.value.trim() === "") {
       isValid = false;
     }
@@ -101,23 +101,23 @@ function validateInputs() {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  let workoutData = {};
+  let gameData = {};
 
-  if (workoutType === "cardio") {
-    workoutData.type = "cardio";
-    workoutData.name = cardioNameInput.value.trim();
-    workoutData.distance = Number(distanceInput.value.trim());
-    workoutData.duration = Number(durationInput.value.trim());
-  } else if (workoutType === "resistance") {
-    workoutData.type = "resistance";
-    workoutData.name = nameInput.value.trim();
-    workoutData.weight = Number(weightInput.value.trim());
-    workoutData.sets = Number(setsInput.value.trim());
-    workoutData.reps = Number(repsInput.value.trim());
-    workoutData.duration = Number(resistanceDurationInput.value.trim());
+  if (gameType === "cardio") {
+    gameData.type = "cardio";
+    gameData.name = cardioNameInput.value.trim();
+    gameData.distance = Number(distanceInput.value.trim());
+    gameData.duration = Number(durationInput.value.trim());
+  } else if (gameType === "resistance") {
+    gameData.type = "resistance";
+    gameData.name = nameInput.value.trim();
+    gameData.weight = Number(weightInput.value.trim());
+    gameData.sets = Number(setsInput.value.trim());
+    gameData.reps = Number(repsInput.value.trim());
+    gameData.duration = Number(resistanceDurationInput.value.trim());
   }
 
-  await API.addExercise(workoutData);
+  await API.addRound(gameData);
   clearInputs();
   toast.classList.add("success");
 }
@@ -140,8 +140,8 @@ function clearInputs() {
   weightInput.value = "";
 }
 
-if (workoutTypeSelect) {
-  workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
+if (gameTypeSelect) {
+  gameTypeSelect.addEventListener("change", handlegameTypeChange);
 }
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {

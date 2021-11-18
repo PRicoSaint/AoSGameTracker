@@ -34,7 +34,7 @@
               <option value="cardio">Cardio</option>
             </select>
           </div>
-          <div class="cardio-form d-none">
+          <!-- <div class="cardio-form d-none">
             <div class="cardio-name">
               <label for="cardio-name">Name:</label>
               <input type="text" name="cardio-name" id="cardio-name" placeholder="Running" />
@@ -47,35 +47,59 @@
               <label for="duration">Duration (minutes):</label>
               <input type="number" name="duration" id="duration" placeholder="10" />
             </div>
-          </div>
+          </div> -->
           <div class="resistance-form d-none">
             <div class="exercise">
-              <label for="name">Exercise Name:</label>
-              <input type="text" name="name" id="name" placeholder="Bench Press" />
+              <label for="number">Round Number</label>
+              <input type="number" name="number" id="number" placeholder="1" />
             </div>
             <div class="weight">
-              <label for="weight">Weight (lbs):</label>
-              <input type="number" name="weight" id="weight" placeholder="200" />
+              <label for="battletactic">Battle Tactic:</label>
+              <select name="battletactic" id="battletactic">
+                <option disabled selected>Choose a Battle Tactic</option>
+                <option value="brokenRanks">Broken Ranks</option>
+                <option value="slayTheWarlord">Slay the Warlord</option>
+                <option value="ferociousAdvance">Ferocious Advance</option>
+                <option value="savageSpearhead">Savage Spearhead</option>
+                <option value="bringItDown">Bring it Down!</option>
+                <option value="monstrousTakeover">Monstrous Takeover</option>
+                <option value="aggressiveExpansion">Aggressive Expansion</option>
+                <option value="conquer">Conquer</option>
+              </select>
             </div>
             <div class="sets">
-              <label for="sets">Sets:</label>
-              <input type="number" name="sets" id="sets" placeholder="4" />
+              <label for="heroicaction">Heroic Action</label>
+              <select name="heroicaction" id="heroicaction">
+                <option disabled selected>Choose a Heroic Action</option>
+                <option value="heroicLeadership">Heroic Leadership</option>
+                <option value="heroicWillpower">Heroic Willpower</option>
+                <option value="theirFinestHour">Their Finest Hour</option>
+                <option value="heroicRecovery">Heroic Recovery</option>
+              </select>
             </div>
             <div class="reps">
-              <label for="reps">Reps:</label>
-              <input type="number" name="reps" id="reps" placeholder="10" />
+              <label for="victorypoints">Victory Points Scored:</label>
+              <input type="number" name="victorypoints" id="victorypoints" placeholder="5" />
+            </div>
+            <div class="reps">
+              <label for="monsterslain">Monster Slain?</label>
+              <select name="monsterslain" id="monsterslain">
+                <option disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
             </div>
             <div class="resistance-duration">
-              <label for="resistance-duration">Duration (minutes):</label>
-              <input type="number" name="resistance-duration" id="resistance-duration" placeholder="10" />
+              <label for="duration">Duration (minutes):</label>
+              <input type="number" name="duration" id="duration" placeholder="15" />
             </div>
           </div>
           <div class="buttons">
             <button disabled class="huge ui blue button complete">
-              Complete
+              Complete Game
             </button>
             <button disabled class="huge ui positive button add-another">
-              Add Exercise
+              Add Round
             </button>
           </div>
         </form>
@@ -83,10 +107,10 @@
     </div>
   </div>
   <div id="toast">
-    Workout Added Successfully!
+    Round Added Successfully!
   </div>
   <script src="/api.js"></script>
-  <script src="/exercise.js"></script>
+  <script src="/round.js"></script>
 </body>
 
 </html>
