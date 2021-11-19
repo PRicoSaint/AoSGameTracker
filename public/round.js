@@ -1,21 +1,23 @@
 // This script file handles the logic behind the input of the Round to be added to the game. It then sends this information to back end, to be added to the database.
-const gameTypeSelect = document.querySelector("#type");
-const cardioForm = document.querySelector(".cardio-form");
+// const gameTypeSelect = document.querySelector("#type");
+// const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
-const cardioNameInput = document.querySelector("#cardio-name");
-const nameInput = document.querySelector("#name");
-const weightInput = document.querySelector("#weight");
-const setsInput = document.querySelector("#sets");
-const repsInput = document.querySelector("#reps");
+// const cardioNameInput = document.querySelector("#cardio-name");
+// const nameInput = document.querySelector("#name");
+const roundNumber = document.querySelector("#number");
+const battleTactic = document.querySelector("#battletactic");
+const heroicAction = document.querySelector("#heroicaction");
 const durationInput = document.querySelector("#duration");
-const resistanceDurationInput = document.querySelector("#resistance-duration");
-const distanceInput = document.querySelector("#distance");
+const victoryPoints = document.querySelector("#victorypoints");
+const monsterSlain = document.querySelector("#monsterslain");
+// const resistanceDurationInput = document.querySelector("#resistance-duration");
+// const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
-const newgame = document.querySelector(".new-game")
+// const newgame = document.querySelector(".new-game")
 
-let gameType = null;
+// let gameType = null;
 let shouldNavigateAway = false;
 
 // If no game exists, a new one will be created.
@@ -35,58 +37,33 @@ async function initRound() {
 
 initRound();
 
-function handlegameTypeChange(event) {
-  gameType = event.target.value;
-
-  if (gameType === "cardio") {
-    cardioForm.classList.remove("d-none");
-    resistanceForm.classList.add("d-none");
-  } else if (gameType === "resistance") {
+function handlegameTypeChange() {
     resistanceForm.classList.remove("d-none");
-    cardioForm.classList.add("d-none");
-  } else {
-    cardioForm.classList.add("d-none");
-    resistanceForm.classList.add("d-none");
-  }
-
   validateInputs();
 }
-
+handlegameTypeChange();
 function validateInputs() {
   let isValid = true;
+  let begin = "start";
 
-  if (gameType === "resistance") {
-    if (nameInput.value.trim() === "") {
+  if (begin) {
+
+    if (roundNumber.value.trim() === "") {
       isValid = false;
     }
 
-    if (weightInput.value.trim() === "") {
+    if (battleTactic.value === "") {
       isValid = false;
     }
 
-    if (setsInput.value.trim() === "") {
-      isValid = false;
-    }
-
-    if (repsInput.value.trim() === "") {
-      isValid = false;
-    }
-
-    if (resistanceDurationInput.value.trim() === "") {
-      isValid = false;
-    }
-  } else if (gameType === "cardio") {
-    if (cardioNameInput.value.trim() === "") {
+    if (heroicAction.value === "") {
       isValid = false;
     }
 
     if (durationInput.value.trim() === "") {
       isValid = false;
     }
-
-    if (distanceInput.value.trim() === "") {
-      isValid = false;
-    }
+  }
   }
 
   if (isValid) {
@@ -96,26 +73,18 @@ function validateInputs() {
     completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
-}
 
 async function handleFormSubmit(event) {
   event.preventDefault();
 
   let gameData = {};
-
-  if (gameType === "cardio") {
-    gameData.type = "cardio";
-    gameData.name = cardioNameInput.value.trim();
-    gameData.distance = Number(distanceInput.value.trim());
+    gameData.number = Number(roundNumber.value.trim());
+    gameData.battletactic = battleTactic.value.trim();
+    gameData.heroicAction = heroicAction.value.trim();
     gameData.duration = Number(durationInput.value.trim());
-  } else if (gameType === "resistance") {
-    gameData.type = "resistance";
-    gameData.name = nameInput.value.trim();
-    gameData.weight = Number(weightInput.value.trim());
-    gameData.sets = Number(setsInput.value.trim());
-    gameData.reps = Number(repsInput.value.trim());
-    gameData.duration = Number(resistanceDurationInput.value.trim());
-  }
+    gameData.victorypoints = Number(victoryPoints.value.trim());
+    gameData.monsterSlain = monsterSlain.value;
+
 
   await API.addRound(gameData);
   clearInputs();
@@ -130,19 +99,17 @@ function handleToastAnimationEnd() {
 }
 
 function clearInputs() {
-  cardioNameInput.value = "";
-  nameInput.value = "";
-  setsInput.value = "";
-  distanceInput.value = "";
+  battleTactic.value = "";
   durationInput.value = "";
-  repsInput.value = "";
-  resistanceDurationInput.value = "";
-  weightInput.value = "";
+  heroicAction.value = "";
+  roundNumber.value = "";
+  victoryPoints.value = "";
+  monsterSlain.value = "";
 }
 
-if (gameTypeSelect) {
-  gameTypeSelect.addEventListener("change", handlegameTypeChange);
-}
+// if (gameTypeSelect) {
+//   gameTypeSelect.addEventListener("change", handlegameTypeChange);
+// }
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;

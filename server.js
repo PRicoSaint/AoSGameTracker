@@ -32,7 +32,7 @@ app.get("/round", (req, res) => {
 app.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/stats.html"));
 });
-// Route to create new Game if new Game is selected. This allows rounds to be added.
+// Route to create new Game if new Game is selected. This allows round to be added.
 app.post("/api/games", (req, res) => {
     Game.create({})
         .then(Game => {
@@ -45,11 +45,11 @@ app.post("/api/games", (req, res) => {
         });
 });
 // Obtains the previous Games, specifically the last one to be used and displayed on tracker page.
-app.get("/api/Games", (req, res) => {
+app.get("/api/games", (req, res) => {
     Game.aggregate([
         {
             $addFields: {
-                totalDuration: { $sum: "$rounds.duration" },
+                totalDuration: { $sum: "$round.duration" },
             }
         }], (error, data) => {
             if (error) {
@@ -60,12 +60,12 @@ app.get("/api/Games", (req, res) => {
         });
 });
 
-// Route that obtains information regarding last 7 Games and their respective rounds. The data of current duration and total weight is then displayed as two different graphs.
-app.get("/api/Games/range", (req, res) => {
+// Route that obtains information regarding last 7 Games and their respective round. The data of current duration and total weight is then displayed as two different graphs.
+app.get("/api/games/range", (req, res) => {
     Game.aggregate([
         {
             $addFields: {
-                totalDuration: { $sum: "$rounds.duration" },
+                totalDuration: { $sum: "$round.duration" },
             }
         }]).sort({ _id: -1 }).limit(7)
         .then(lastSevenGames => {
@@ -78,7 +78,7 @@ app.get("/api/Games/range", (req, res) => {
         });
 });
 // This is the route to add an round to an existing Game
-app.put("/api/Games/:id", (req, res) => {
+app.put("/api/games/:id", (req, res) => {
     Game.updateOne(
         {
             _id: req.params.id
@@ -86,14 +86,13 @@ app.put("/api/Games/:id", (req, res) => {
         {
             $push:
             {
-                rounds: {
-                    type: req.body.type,
-                    name: req.body.name,
-                    distance: req.body.distance,
+                round: {
+                    number: req.body.number,
+                    battletactic: req.body.battletactic,
                     duration: req.body.duration,
-                    weight: req.body.weight,
-                    sets: req.body.sets,
-                    reps: req.body.reps,
+                    heroicaction: req.body.heroicaction,
+                    victorypoints: req.body.victorypoints,
+                    monsterslain: req.body.monsterslain,
                 },
             }
         },
