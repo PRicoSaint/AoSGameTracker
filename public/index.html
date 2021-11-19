@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <title>Age of Sigmar Game Tracker</title>
 </head>
@@ -15,6 +18,7 @@
     <a href="/">Game Tracker</a>
     <a href="/stats">Dashboard</a>
   </nav>
+  <div class ="fullbackgroundimg">
   <div class="wrapper workout">
     <header>
       <h1>Age of Sigmar Game Tracker</h1>
@@ -35,9 +39,29 @@
     </div>
   </div>
   </div>
+  </div>
   <div id="toast">
     Game Added Successfully! WOOHOO! GREAT JOB!
   </div>
+  <footer>
+    <div class="ui tiny images feet">
+    <img class="ui image" src="./prsaintlogo.png" alt="PRSaint Logo"/>
+   
+    <img class="ui image" src="Dallas_Star1.webp" alt="Gameclub Logo"/>
+
+    </div>
+    <p class = "feet">
+      App created by Esteban Santos
+    </p>
+    <form class = "feet" action="https://www.thetexasmasters.com/">
+      <button type = "submit" class="ui right floated purple button">Texas Masters</button>
+  </form>
+  <form class = "feet" action="https://shrouded-waters-22536.herokuapp.com/">
+    <button type = "submit" class="ui right floated blue button">My Other Work</button>
+</form>
+
+    
+  </footer>
   <script src="/api.js"></script>
   <script src="/game.js"></script>
   <script src="/index.js"></script>

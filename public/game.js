@@ -1,34 +1,30 @@
 // Script for tracker page. Last workout is chosen and data from it is added and displayed on screen.
-async function initWorkout() {
-  const lastWorkout = await API.getLastWorkout();
-  console.log("Last workout:", lastWorkout);
-  if (lastWorkout) {
+async function initGame() {
+  const lastGame = await API.getLastGame();
+  console.log("Last game:", lastGame);
+  if (lastGame) {
     document
-      .querySelector("a[href='/exercise?']")
-      .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
+      .querySelector("a[href='/round?']")
+      .setAttribute("href", `/round?id=${lastGame._id}`);
 
-    const workoutSummary = {
-      date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
-      numExercises: lastWorkout.exercises.length,
-      ...tallyExercises(lastWorkout.exercises)
+    const gameSummary = {
+      date: formatDate(lastGame.day),
+      totalDuration: lastGame.totalDuration,
+      numRounds: lastGame.round.length,
+      ...tallyRounds(lastGame.round)
     };
 
-    renderWorkoutSummary(workoutSummary);
+    rendergameSummary(gameSummary);
   } else {
-    renderNoWorkoutText()
+    renderNoGameText()
   }
 }
 
-function tallyExercises(exercises) {
-  const tallied = exercises.reduce((acc, curr) => {
-    if (curr.type === "resistance") {
-      acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
-      acc.totalSets = (acc.totalSets || 0) + curr.sets;
-      acc.totalReps = (acc.totalReps || 0) + curr.reps;
-    } else if (curr.type === "cardio") {
-      acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
-    }
+function tallyRounds(round) {
+  const tallied = round.reduce((acc, curr) => {
+    acc.victoryPoints = (acc.victoryPoints || 0) + curr.victorypoints;
+    // acc.totalSets = (acc.totalSets || 0) + curr.sets;
+    //   acc.totalReps = (acc.totalReps || 0) + curr.reps;
     return acc;
   }, {});
   return tallied;
@@ -45,17 +41,17 @@ function formatDate(date) {
   return new Date(date).toLocaleDateString(options);
 }
 
-function renderWorkoutSummary(summary) {
+function rendergameSummary(summary) {
   const container = document.querySelector(".workout-stats");
 
   const workoutKeyMap = {
     date: "Date",
-    totalDuration: "Total Workout Duration",
-    numExercises: "Exercises Performed",
-    totalWeight: "Total Weight Lifted",
-    totalSets: "Total Sets Performed",
-    totalReps: "Total Reps Performed",
-    totalDistance: "Total Distance Covered"
+    totalDuration: "Total Game Duration",
+    numRounds: "Number of Rounds played",
+    victoryPoints: "Total Victory Points Scored",
+    // totalSets: "Total Sets Performed",
+    // totalReps: "Total Reps Performed",
+    // totalDistance: "Total Distance Covered"
   };
 
   Object.keys(summary).forEach(key => {
@@ -72,14 +68,14 @@ function renderWorkoutSummary(summary) {
   });
 }
 // If no previous workout exists (empty database), this will display.
-function renderNoWorkoutText() {
+function renderNoGameText() {
   const container = document.querySelector(".workout-stats");
   const p = document.createElement("p");
   const strong = document.createElement("strong");
-  strong.textContent = "You have not created a workout yet!"
+  strong.textContent = "You have not registered a game yet!"
 
   p.appendChild(strong);
   container.appendChild(p);
 }
 
-initWorkout();
+initGame();

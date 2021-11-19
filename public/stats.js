@@ -3,7 +3,12 @@ function calculateTotalVictoryPoints(data) {
   const totals = [];
 
   data.forEach((game) => {
-    const gameTotal = game.round.reduce(({ victorypoints }));
+    const gameTotal = game.round.reduce((total, { number, victorypoints }) => {
+      if (number) {
+        return total + victorypoints;
+      }
+      return total;
+    }, 0);
 
     totals.push(gameTotal);
   });
@@ -104,4 +109,4 @@ function populateChart(data) {
 }
 
 // get all game data from back-end
-API.getgamesInRange().then(populateChart);
+API.getGamesInRange().then(populateChart);

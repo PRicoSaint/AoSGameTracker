@@ -50,6 +50,10 @@ header {
   text-align: center;
   font-size: 1.5rem;
 }
+header h1{
+  color:whitesmoke;
+  font-family: 'Supermercado One', cursive;
+}
 
 select {
   display: block;
@@ -103,7 +107,7 @@ input {
 }
 
 .wrapper {
-  background-color: #f2f8ff;
+  /* background-color: #f2f8ff; */
   padding-bottom: 100px;
 }
 
@@ -317,7 +321,39 @@ button {
 .d-none {
   display: none;
 }
-
+#image{
+  /* display: block; */
+  margin-left:auto;
+  margin-right:auto;
+}
+footer {
+  background-color: aqua;
+  text-align: center;
+}
+.fullbackgroundimg{
+  background-image: url("AoSIDK.jpg");
+  background-color: #cccccc;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+/* footer p {
+  display: inline;
+  margin-left:auto;
+  margin-right:auto;
+} */
+.feet{
+  display: inline-block;
+  /* width: 50%;
+  height: 100%; */
+}
+#prsaintlogo{
+  /* display:block; */
+  margin-left:auto;
+  margin-right:auto;
+  border-radius: 8px;
+  width: 100px ;
+}
 .btn,
 button {
   display: block;

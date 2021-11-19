@@ -26,7 +26,7 @@ async function initRound() {
 
   if (location.search.split("=")[1] === undefined) {
     console.log("Line 24 " + location.search.split("=")[1]);
-    game = await API.creategame()
+    game = await API.createGame()
     console.log("This is line 26 in" + game);
   }
   if (game) {
@@ -64,7 +64,7 @@ function validateInputs() {
       isValid = false;
     }
   }
-  }
+
 
   if (isValid) {
     completeButton.removeAttribute("disabled");
@@ -73,7 +73,7 @@ function validateInputs() {
     completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
-
+}
 async function handleFormSubmit(event) {
   event.preventDefault();
 
