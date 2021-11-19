@@ -1,16 +1,11 @@
 // This script file will obtain data from mongodb and display information on graphs.
-function calculateTotalWeight(data) {
+function calculateTotalVictoryPoints(data) {
   const totals = [];
 
-  data.forEach((workout) => {
-    const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
-      if (type === 'resistance') {
-        return total + weight;
-      }
-      return total;
-    }, 0);
+  data.forEach((game) => {
+    const gameTotal = game.round.reduce(({ victorypoints }));
 
-    totals.push(workoutTotal);
+    totals.push(gameTotal);
   });
 
   return totals;
@@ -18,7 +13,7 @@ function calculateTotalWeight(data) {
 
 function populateChart(data) {
   const durations = data.map(({ totalDuration }) => totalDuration);
-  const pounds = calculateTotalWeight(data);
+  const victoryPoints = calculateTotalVictoryPoints(data);
 
   const line = document.querySelector('#canvas').getContext('2d');
   const bar = document.querySelector('#canvas2').getContext('2d');
@@ -40,7 +35,7 @@ function populateChart(data) {
       labels,
       datasets: [
         {
-          label: 'Workout Duration In Minutes',
+          label: 'Game Duration In Minutes',
           backgroundColor: 'red',
           borderColor: 'red',
           data: durations,
@@ -52,7 +47,7 @@ function populateChart(data) {
       responsive: true,
       title: {
         display: true,
-        text: 'Time Spent Working Out (Last 7 days)',
+        text: 'Game Durations (Last 7 games)',
       },
       scales: {
         y: {
@@ -68,8 +63,8 @@ function populateChart(data) {
       labels,
       datasets: [
         {
-          label: 'Pounds',
-          data: pounds,
+          label: 'Victory Points',
+          data: victoryPoints,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -93,7 +88,7 @@ function populateChart(data) {
     options: {
       title: {
         display: true,
-        text: 'Pounds Lifted (Last 7 days)',
+        text: 'victory Points Earned per game (Last 7 games)',
       },
       scales: {
         yAxes: [
@@ -108,5 +103,5 @@ function populateChart(data) {
   });
 }
 
-// get all workout data from back-end
-API.getWorkoutsInRange().then(populateChart);
+// get all game data from back-end
+API.getgamesInRange().then(populateChart);

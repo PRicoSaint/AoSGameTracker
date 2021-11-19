@@ -29,6 +29,7 @@ const gameschema = new Schema({
 
       victorypoints: {
         type: Number,
+        required: true
       },
 
       monsterslain: {
